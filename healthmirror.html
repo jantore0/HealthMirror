@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Mirror - Жеке денсаулық көмекшісі</title>
+    <style>
+        :root {
+            --primary: #2b7a78;
+            --secondary: #3aafa9;
+            --light: #feffff;
+            --dark: #17252a;
+            --accent: #def2f1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--accent);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--light);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .hero-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .hero-img:hover {
+            transform: scale(1.02);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .slideshow {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .slide {
+            display: none;
+            padding: 2rem;
+            background-color: var(--light);
+            text-align: center;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .slide-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .slide-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+            cursor: pointer;
+        }
+        
+        .dot.active {
+            background-color: var(--primary);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: var(--light);
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--light);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--light);
+        }
+        
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--light);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--light) transparent transparent;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--light);
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid var(--light);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent var(--light) transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Health Mirror</h1>
+            <p>Жеке денсаулық мониторингінің жаңа дәуірі</p>
+            <a href="#features" class="btn">Қызметтерді көру</a>
+            <a href="#slides" class="btn">Презентация</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <img src="health.png" alt="Health Mirror" class="hero-img">
+            <div>
+                <h2>Health Mirror туралы</h2>
+                <p>Health Mirror - бұл әдеттегі айнаның қызметін асыратын ақылды құрылғы. Ол сіздің денсаулық көрсеткіштеріңізді күнделікті пайдалану кезінде автоматты түрде бақылайды және талдайды.</p>
+                <p>Бұл жай айна емес - бұл сіздің жеке денсаулық кеңесшіңіз!</p>
+            </div>
+        </section>
+        
+        <section id="features">
+            <h2>Негізгі қызметтері</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">❤️</div>
+                    <h3>Жүрек соғу жиілігін бақылау</h3>
+                    <p>Инфрақызыл сенсорлар арқылы жүрек соғу жиілігін нақты өлшеу</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌡️</div>
+                    <h3>Дененің температурасы</h3>
+                    <p>Бет терісінің температурасын тексеру арқылы дене температурасын анықтау</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Стресс деңгейі</h3>
+                    <p>Мимиканы талдау арқылы стресс деңгейін бағалау</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💤</div>
+                    <h3>Ұйқы сапасы</h3>
+                    <p>Түнгі ұйқы сапасын бағалау және жақсарту бойынша ұсыныстар</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Деректерді сақтау</h3>
+                    <p>Барлық денсаулық көрсеткіштерін сақтап, динамикасын көрсету</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚠️</div>
+                    <h3>Ескерту жүйесі</h3>
+                    <p>Денсаулық көрсеткіштерінің қалыптан тыс ауытқулары туралы ескерту</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="slides">
+            <h2>Презентация слайдтары</h2>
+            <div class="slideshow">
+                <div class="slide active">
+                    <h3>1. Health Mirror - негізгі идея</h3>
+                    <img src="https://via.placeholder.com/600x300?text=Health+Mirror+Concept" class="slide-img">
+                    <p>Health Mirror - бұл әдеттегі айнаның қызметін асыратын ақылды құрылғы. Ол сіздің денсаулық көрсеткіштеріңізді күнделікті пайдалану кезінде автоматты түрде бақылайды.</p>
+                </div>
+                <div class="slide">
+                    <h3>2. Негізгі мәселелер</h3>
+                    <img src="https://via.placeholder.com/600x300?text=Current+Health+Problems" class="slide-img">
+                    <p>• Дәрігерге жиі барудың қиындығы<br>
+                    • Үйде дәл диагностика жасау мүмкіндігінің жоқтығы<br>
+                    • Денсаулық көрсеткіштерін үнемі бақыламау</p>
+                </div>
+                <div class="slide">
+                    <h3>3. Технологиялық шешімдер</h3>
+                    <img src="https://via.placeholder.com/600x300?text=Technical+Solutions" class="slide-img">
+                    <p>• Жүз терісінің түсі бойынша гемоглобин деңгейін анықтау<br>
+                    • Жүрек соғу жиілігін инфрақызыл сенсорлар арқылы өлшеу<br>
+                    • Мимиканы талдау арқылы стресс деңгейін бағалау</p>
+                </div>
+                <div class="slide">
+                    <h3>4. Жұмыс принципі</h3>
+                    <img src="https://via.placeholder.com/600x300?text=How+It+Works" class="slide-img">
+                    <p>1. Пайдаланушы айнаға қарайды (5-10 секунд)<br>
+                    2. Көмекей сенсорлары және камералар деректерді жинайды<br>
+                    3. Жасанды интеллект деректерді талдап, нәтижелерді шығарады<br>
+                    4. Қажет болған жағдайда дәрігерге көрінуді ұсынады</p>
+                </div>
+                <div class="slide">
+                    <h3>5. Артықшылықтары</h3>
+                    <img src="https://via.placeholder.com/600x300?text=Benefits" class="slide-img">
+                    <p><strong>Пайдаланушы үшін:</strong><br>
+                    • Уақыт үнемдеу<br>
+                    • Денсаулық жағдайын нақты бақылау<br>
+                    • Ерте диагностика мүмкіндігі<br><br>
+                    <strong>Дәрігерлер үшін:</strong><br>
+                    • Нақты анамнез алуға көмек<br>
+                    • Пайдаланушының денсаулық тарихын сақтау</p>
+                </div>
+                <div class="slide">
+                    <h3>6. Болашақтағы дамуы</h3>
+                    <img src="https://via.placeholder.com/600x300?text=Future+Development" class="slide-img">
+                    <p>• Генетикалық талдау<br>
+                    • Виртуалды дәрігер<br>
+                    • Медициналық мекемелермен интеграция<br>
+                    • Ақылды үй жүйелеріне қосылу</p>
+                </div>
+                <div class="slide-nav">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                    <span class="dot" onclick="currentSlide(6)"></span>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Даму жоспары</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>2024</h3>
+                        <p>Негізгі функцияларды әзірлеу</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>2025</h3>
+                        <p>Нарыққа шығару</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>2026</h3>
+                        <p>Генетикалық талдауды қосу</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>2027</h3>
+                        <p>Виртуалды дәрігерді енгізу</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>2028</h3>
+                        <p>Халықтық медицинаға енгізу</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>2029</h3>
+                        <p>Бүкіләлемдік тарату</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <h2>Health Mirror</h2>
+            <p>Денсаулықты бақылаудың жаңа дәуірі</p>
+            <p>© 2024 Барлық құқықтар қорғалған</p>
+        </div>
+    </footer>
+
+    <script>
+        // Slideshow functionality
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+        }
+        
+        // Auto slide change every 5 seconds
+        setInterval(function() {
+            slideIndex++;
+            if (slideIndex > document.getElementsByClassName("slide").length) {
+                slideIndex = 1;
+            }
+            showSlides(slideIndex);
+        }, 5000);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
